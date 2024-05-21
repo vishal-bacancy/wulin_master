@@ -202,13 +202,18 @@
       let {precision, style_class, style, percentageSign = "%"} = columnDef;
       precision = precision || 0;
 
-      value = Number(value) * 100;
-
-      if (precision === 0) {
-        value = (value === null) ? '' : (parseInt(value) + percentageSign);
+      if(Number(value) === 0) {
+        value = ""
       } else {
-        value = (value === null) ? '' : (parseFloat(value).toFixed(precision) + percentageSign);
+        const parsedNum = Number(value) * 100
+
+        if (precision === 0) {
+          value = parseInt(parsedNum) + percentageSign
+        } else {
+          value = parseFloat(parsedNum).toFixed(precision) + percentageSign
+        }
       }
+
       return applyStyle(value, style_class, style || '');
     },
 
