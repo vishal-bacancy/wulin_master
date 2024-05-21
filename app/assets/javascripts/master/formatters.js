@@ -180,6 +180,8 @@
 
     // Support growth values
     PercentageFormatter: function(row, cell, value, columnDef, dataContext) {
+      const {percentageSign = "%"} = columnDef
+
       if (columnDef.precision == undefined) {
         var precision = 0;
       } else {
@@ -187,9 +189,9 @@
       }
 
       if (precision == 0) {
-        value = (value === null) ? '' : (parseInt(value) + '%');
+        value = (value === null) ? '' : (parseInt(value) + percentageSign);
       } else {
-        value = (value === null) ? '' : (parseFloat(value).toFixed(precision) + '%');
+        value = (value === null) ? '' : (parseFloat(value).toFixed(precision) + percentageSign);
       }
 
       return applyStyle(value, columnDef.style_class, columnDef.style || '');
@@ -197,15 +199,15 @@
 
     // stored in decimal, rendered in percentage, e.g. 0.12 -> 12%
     DecimalPercentageFormatter: function(row, cell, value, columnDef, dataContext) {
-      let {precision, style_class, style} = columnDef;
+      let {precision, style_class, style, percentageSign = "%"} = columnDef;
       precision = precision || 0;
 
       value = Number(value) * 100;
 
       if (precision === 0) {
-        value = (value === null) ? '' : (parseInt(value) + '%');
+        value = (value === null) ? '' : (parseInt(value) + percentageSign);
       } else {
-        value = (value === null) ? '' : (parseFloat(value).toFixed(precision) + '%');
+        value = (value === null) ? '' : (parseFloat(value).toFixed(precision) + percentageSign);
       }
       return applyStyle(value, style_class, style || '');
     },
