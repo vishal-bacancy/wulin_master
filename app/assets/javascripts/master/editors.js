@@ -679,6 +679,8 @@
       this.select.empty();
       this.select.append($("<option />"));
 
+      this.args.grid.onHasManyCellEdit.notify({ editor: this });
+
       $.getJSON(this.choices, function(itemdata) {
         $.each(itemdata, function(index, value) {
           this.appendOptions(this.select, value);
